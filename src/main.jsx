@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import Root from "./router/Root";
 import { ThemeProvider, Typography, createTheme } from "@mui/material";
-import './index.css'
+import "./index.css";
 const theme = createTheme({
     typography: {
         fontFamily: ["Poppins"].join(","),

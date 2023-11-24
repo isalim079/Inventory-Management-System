@@ -39,7 +39,7 @@ function Navbar() {
     };
 
     return (
-        <AppBar position="static">
+        <AppBar position="static" sx={{background: "#B93B5E"}}>
             <Container maxWidth="xl">
                 <Toolbar>
                     <Stack>
