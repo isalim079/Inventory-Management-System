@@ -140,7 +140,7 @@ function Navbar() {
                                 sx={{ p: 0 }}
                             >
                                 <Avatar
-                                    alt="Remy Sharp"
+                                    alt=""
                                     src="/static/images/avatar/2.jpg"
                                 />
                             </IconButton>
