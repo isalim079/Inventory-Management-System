@@ -1,7 +1,9 @@
+import BannerSection from "../BannerSection/BannerSection";
+
 const Home = () => {
     return (
         <div>
-            <h1>Go for a walk</h1>
+            <BannerSection></BannerSection>
         </div>
     );
 };
