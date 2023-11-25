@@ -29,11 +29,16 @@ const OurClients = () => {
 
     return (
         <div className=" max-w-screen-xl mx-auto md:mt-36 md:mb-36">
-            <div className="mb-4 flex justify-center"> 
-                <h1 className="text-center text-4xl font-semibold uppercase text-siteDefaultSecond border-b-2 border-siteDefaultSecond w-[280px] border-r-2 border-l-2 pb-2">Our Clients</h1>
+            <div className="mb-4 flex justify-center">
+                <h1 className="text-center text-4xl font-semibold uppercase text-siteDefaultSecond border-b-2 border-siteDefaultSecond w-[280px] border-r-2 border-l-2 pb-2">
+                    Our Clients
+                </h1>
             </div>
-            <div className="mb-16 flex justify-center">
-                <p className="text-center text-base mb-10 w-[620px] text-siteDefaultSecond">Still thinking about your shop inventory management system?? Here we are...</p>
+            <div className="mb-10 flex justify-center">
+                <p className="text-center text-base mb-10 w-[620px] text-siteDefaultSecond">
+                    Still thinking about your shop inventory management system??
+                    Here we are...
+                </p>
             </div>
             <Marquee speed={80}>
                 <div className="flex">
@@ -57,7 +62,7 @@ const OurClients = () => {
                                     </CardContent>
                                     <CardActions>
                                         <button className="text-sm bg-siteDefault text-white w-full py-2 hover:bg-[#8F2D49]">
-                                            Learn more
+                                            Visit this site
                                         </button>
                                     </CardActions>
                                 </Card>

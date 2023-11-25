@@ -15,11 +15,26 @@ import AdbIcon from "@mui/icons-material/Adb";
 import logo from "/logo150.png";
 import { Stack } from "@mui/material";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../router/AuthProvider";
+import { PiUserCircleFill } from "react-icons/pi";
 
 const pages = ["Home", "create-shop", "Login", "Register"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function Navbar() {
+    const { user, logOut } = React.useContext(AuthContext);
+
+    const handleSignOut = () => {
+        logOut()
+            .then(() => {
+                console.log("you have logged out successfully");
+            })
+            .catch((error) => {
+                console.log(error.code);
+                console.log(error.message);
+            });
+    };
+
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -39,11 +54,16 @@ function Navbar() {
     };
 
     return (
-        <AppBar position="static" sx={{background: "#B93B5E"}}>
+        <AppBar position="static" sx={{ background: "#B93B5E" }}>
             <Container maxWidth="xl">
                 <Toolbar>
                     <Stack>
-                        <img style={{ width: "92px" }} src={logo} alt="" />
+                        <img
+                            className="hidden md:flex"
+                            style={{ width: "92px" }}
+                            src={logo}
+                            alt=""
+                        />
                     </Stack>
 
                     <Box
@@ -133,46 +153,80 @@ function Navbar() {
                         ))}
                     </Box>
 
-                    <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
-                            <IconButton
-                                onClick={handleOpenUserMenu}
-                                sx={{ p: 0 }}
-                            >
-                                <Avatar
-                                    alt=""
-                                    src="/static/images/avatar/2.jpg"
-                                />
-                            </IconButton>
-                        </Tooltip>
-                        <Menu
-                            sx={{ mt: "45px" }}
-                            id="menu-appbar"
-                            anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: "top",
-                                horizontal: "right",
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: "top",
-                                horizontal: "right",
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                        >
-                            {settings.map((setting) => (
-                                <MenuItem
-                                    key={setting}
-                                    onClick={handleCloseUserMenu}
+                    <div className="">
+                        {user ? (
+                            <div className="flex items-center">
+                                <div className="flex items-center">
+                                    <div>
+                                        {user?.photoURL ? (
+                                            <img
+                                                className="md:w-10 md:h-10 w-8 h-8 md:mr-4 rounded-full"
+                                                src={user?.photoURL}
+                                            />
+                                        ) : (
+                                            <PiUserCircleFill className="text-4xl md:mr-4" />
+                                        )}
+                                    </div>
+                                    <div className="">
+                                        {user?.displayName ? (
+                                            <p className=" md:text-white text-xs md:text-base underline">
+                                                {user?.displayName}
+                                            </p>
+                                        ) : (
+                                            ""
+                                        )}
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={handleSignOut}
+                                    className="md:px-3 md:py-2 md:bg-[#F0895D] text-sm md:text-white  text-black underline md:no-underline md:ml-4 md:font-semibold"
                                 >
-                                    <Typography textAlign="center">
-                                        {setting}
-                                    </Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu>
-                    </Box>
+                                    Log Out
+                                </button>
+                            </div>
+                        ) : (
+                            <Box sx={{ flexGrow: 0 }}>
+                                <Tooltip title="Open settings">
+                                    <IconButton
+                                        onClick={handleOpenUserMenu}
+                                        sx={{ p: 0 }}
+                                    >
+                                        <Avatar
+                                            alt=""
+                                            src="/static/images/avatar/2.jpg"
+                                        />
+                                    </IconButton>
+                                </Tooltip>
+                                <Menu
+                                    sx={{ mt: "45px" }}
+                                    id="menu-appbar"
+                                    anchorEl={anchorElUser}
+                                    anchorOrigin={{
+                                        vertical: "top",
+                                        horizontal: "right",
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: "top",
+                                        horizontal: "right",
+                                    }}
+                                    open={Boolean(anchorElUser)}
+                                    onClose={handleCloseUserMenu}
+                                >
+                                    {settings.map((setting) => (
+                                        <MenuItem
+                                            key={setting}
+                                            onClick={handleCloseUserMenu}
+                                        >
+                                            <Typography textAlign="center">
+                                                {setting}
+                                            </Typography>
+                                        </MenuItem>
+                                    ))}
+                                </Menu>
+                            </Box>
+                        )}
+                    </div>
                 </Toolbar>
             </Container>
         </AppBar>
