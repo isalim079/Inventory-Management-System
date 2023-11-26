@@ -53,38 +53,60 @@ const Register = () => {
             return;
         }
 
-        registerWithEmailPass(email, password)
-            .then((result) => {
-                console.log(result.user);
-
-                toast.success("You have successfully created your account");
-
-                updateProfile(result.user, {
-                    displayName: name,
-                    photoURL: image,
-                });
-
-                navigate(location?.state ? location.state : "/create-shop");
-            })
-            .catch((error) => {
-                console.log(error.code);
-                console.log(error.message);
-            });
-
         fetch("http://localhost:2800/imsUsersDB", {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-            },
-            body: JSON.stringify(imsUsers),
+            method: "GET",
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
-                if (data.insertedId) {
-                    toast.success("Successfully added user to database");
+                const existingEmail = data.find(
+                    (user) => user?.email === email
+                );
+
+                if (existingEmail) {
+                    toast.error("An account with this email already exist");
+                    return;
                 }
-                // form.reset();
+
+                registerWithEmailPass(email, password)
+                    .then((result) => {
+                        console.log(result.user);
+
+                        toast.success(
+                            "You have successfully created your account"
+                        );
+
+                        updateProfile(result.user, {
+                            displayName: name,
+                            photoURL: image,
+                        });
+                    })
+                    .catch((error) => {
+                        console.log(error.code);
+                        console.log(error.message);
+                    });
+
+                fetch("http://localhost:2800/imsUsersDB", {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json",
+                    },
+                    body: JSON.stringify(imsUsers),
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        console.log(data);
+                        if (data.insertedId) {
+                            toast.success(
+                                "Successfully added user to database"
+                            );
+                        }
+
+                        navigate(
+                            location?.state ? location.state : "/create-shop"
+                        );
+
+                        // form.reset();
+                    });
             });
     };
 

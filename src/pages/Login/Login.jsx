@@ -54,6 +54,7 @@ const Login = () => {
                             <TextField
                                 id="outlined-basic"
                                 label="Your Email"
+                                name="email"
                                 variant="outlined"
                                 InputLabelProps={{
                                     style: { color: "#B93B5E" },
@@ -63,6 +64,8 @@ const Login = () => {
                             <TextField
                                 id="outlined-basic"
                                 label="Password"
+                                name="password"
+                                type="password"
                                 variant="outlined"
                                 InputLabelProps={{
                                     style: { color: "#B93B5E" },
