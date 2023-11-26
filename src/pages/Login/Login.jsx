@@ -7,9 +7,11 @@ import { useContext } from "react";
 import { AuthContext } from "../../router/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Login = () => {
     const { loginWithEmailPass } = useContext(AuthContext);
+    const axiosPublic = useAxiosPublic();
 
     const location = useLocation();
 
@@ -23,9 +25,23 @@ const Login = () => {
 
         loginWithEmailPass(email, password)
             .then((result) => {
-                console.log(result.user);
+                console.log(result.user.email);
 
-                navigate(location?.state ? location.state : "/create-shop");
+                axiosPublic.get("/imsUsersDB").then((res) => {
+                    // console.log(res.data);
+                    const existingEmail = res.data.find(
+                        (users) => users?.email === result?.user?.email
+                    );
+                    if (existingEmail?.shopId) {
+                        navigate(
+                            location?.state ? location.state : "/dashboard"
+                        );
+                    } else {
+                        navigate(
+                            location?.state ? location.state : "/create-shop"
+                        );
+                    }
+                });
             })
             .catch((error) => {
                 console.log(error.code);

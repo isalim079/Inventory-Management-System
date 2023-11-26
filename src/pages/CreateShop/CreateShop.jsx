@@ -56,7 +56,7 @@ const CreateShop = () => {
 
                             setTimeout(() => {
                                 navigate(
-                                    location?.state ? location?.state : "/home"
+                                    location?.state ? location?.state : "/"
                                 );
                             }, 3000);
                         })

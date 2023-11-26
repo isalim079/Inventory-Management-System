@@ -8,21 +8,154 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
+
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import logo from "/logo150.png";
 import { Stack } from "@mui/material";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../router/AuthProvider";
 import { PiUserCircleFill } from "react-icons/pi";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
-const pages = ["Home", "create-shop", "Login", "Register", "Watch-Demo"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function Navbar() {
     const { user, logOut } = React.useContext(AuthContext);
+    // console.log(user);
+
+    const [shopOwners, setShopOwners] = React.useState([]);
+
+    const axiosPublic = useAxiosPublic();
+
+    React.useEffect(() => {
+        axiosPublic
+            .get("/imsUsersDB")
+            .then((res) => {
+                const existingEmail = res.data.find(
+                    (users) => users?.email === user?.email
+                );
+                setShopOwners(existingEmail);
+            })
+            .catch((error) => {
+                console.log("fetching error ", error);
+            });
+    }, [axiosPublic, user?.email]);
+
+    // console.log(shopOwners.shopId);
+
+    const navLinks = (
+        <>
+            <div className="flex space-x-6 list-none mx-auto">
+                <li>
+                    <NavLink
+                        to="/"
+                        style={({ isActive, isPending }) => {
+                            return {
+                                fontWeight: isActive ? "bold" : "",
+                                transition: "all 0.2s",
+                                textDecoration: isActive ? "underline" : "",
+                                color: isPending ? "white" : "white",
+                            };
+                        }}
+                    >
+                        HOME
+                    </NavLink>
+                </li>
+
+                {shopOwners?.shopId ? (
+                    <li>
+                        <NavLink
+                            to="/dashboard"
+                            style={({ isActive, isPending }) => {
+                                return {
+                                    fontWeight: isActive ? "bold" : "",
+                                    transition: "all 0.2s",
+                                    textDecoration: isActive ? "underline" : "",
+                                    color: isPending ? "white" : "white",
+                                };
+                            }}
+                        >
+                            DASHBOARD
+                        </NavLink>
+                    </li>
+                ) : (
+                    <li>
+                        <NavLink
+                            to="/create-shop"
+                            style={({ isActive, isPending }) => {
+                                return {
+                                    fontWeight: isActive ? "bold" : "",
+                                    transition: "all 0.2s",
+                                    textDecoration: isActive ? "underline" : "",
+                                    color: isPending ? "white" : "white",
+                                };
+                            }}
+                        >
+                            CREATE-SHOP
+                        </NavLink>
+                    </li>
+                )}
+
+                {user?.email ? (
+                    ""
+                ) : (
+                    <li>
+                        <NavLink
+                            to="/login"
+                            style={({ isActive, isPending }) => {
+                                return {
+                                    fontWeight: isActive ? "bold" : "",
+                                    transition: "all 0.2s",
+                                    textDecoration: isActive ? "underline" : "",
+                                    color: isPending ? "white" : "white",
+                                };
+                            }}
+                        >
+                            LOGIN
+                        </NavLink>
+                    </li>
+                )}
+
+                {user?.email ? (
+                    ""
+                ) : (
+                    <li>
+                        <NavLink
+                            to="/register"
+                            style={({ isActive, isPending }) => {
+                                return {
+                                    fontWeight: isActive ? "bold" : "",
+                                    transition: "all 0.2s",
+                                    textDecoration: isActive ? "underline" : "",
+                                    color: isPending ? "white" : "white",
+                                };
+                            }}
+                        >
+                            REGISTER
+                        </NavLink>
+                    </li>
+                )}
+
+                <li>
+                    <NavLink
+                        to="/watch-demo"
+                        style={({ isActive, isPending }) => {
+                            return {
+                                fontWeight: isActive ? "bold" : "",
+                                transition: "all 0.2s",
+                                textDecoration: isActive ? "underline" : "",
+                                color: isPending ? "white" : "white",
+                            };
+                        }}
+                    >
+                        WATCH-DEMO
+                    </NavLink>
+                </li>
+            </div>
+        </>
+    );
 
     const handleSignOut = () => {
         logOut()
@@ -101,22 +234,7 @@ function Navbar() {
                                     display: { xs: "block", md: "none" },
                                 }}
                             >
-                                {pages.map((page) => (
-                                    <Link
-                                        key={page}
-                                        to={`/${page.toLowerCase()} `}
-                                        style={{ textDecoration: "none" }}
-                                    >
-                                        <MenuItem
-                                            key={page}
-                                            onClick={handleCloseNavMenu}
-                                        >
-                                            <Typography textAlign="center">
-                                                {page}
-                                            </Typography>
-                                        </MenuItem>
-                                    </Link>
-                                ))}
+                                {navLinks}
                             </Menu>
                         </Stack>
                     </Box>
@@ -128,29 +246,9 @@ function Navbar() {
                         sx={{
                             flexGrow: 1,
                             display: { xs: "none", md: "flex" },
-
-                            marginLeft: "480px",
                         }}
                     >
-                        {pages.map((page) => (
-                            <Link
-                                key={page}
-                                to={`/${page.toLowerCase()} `}
-                                style={{ textDecoration: "none" }}
-                            >
-                                <Button
-                                    key={page}
-                                    onClick={handleCloseNavMenu}
-                                    sx={{
-                                        my: 2,
-                                        color: "white",
-                                        display: "block",
-                                    }}
-                                >
-                                    {page}
-                                </Button>
-                            </Link>
-                        ))}
+                        {navLinks}
                     </Box>
 
                     <div className="">

@@ -12,7 +12,7 @@ const WatchDemo = () => {
             newTab.focus()
         }
         else{
-            navigate("/home")
+            navigate("/")
         }
     }, [navigate])
 
