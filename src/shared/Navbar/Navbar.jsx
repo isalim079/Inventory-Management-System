@@ -153,21 +153,6 @@ function Navbar() {
                         WATCH-DEMO
                     </NavLink>
                 </li>
-                <li>
-                    <NavLink
-                        to="/amis"
-                        style={({ isActive, isPending }) => {
-                            return {
-                                fontWeight: isActive ? "bold" : "",
-                                transition: "all 0.2s",
-                                textDecoration: isActive ? "underline" : "",
-                                color: isPending ? "white" : "white",
-                            };
-                        }}
-                    >
-                        Amis
-                    </NavLink>
-                </li>
             </div>
         </>
     );

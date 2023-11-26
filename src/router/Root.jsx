@@ -8,8 +8,8 @@ import ErrorPage from "./ErrorPage";
 import WatchDemo from "../pages/WatchDemo/WatchDemo";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import PrivateRoute from "./PrivateRoute";
-import AmiS from "./AmiS";
-
+import AddProduct from "../pages/Dashboard/AddProduct/AddProduct";
+import AddProductForm from "../pages/Dashboard/AddProduct/AddProductForm";
 
 const Root = createBrowserRouter([
     {
@@ -44,19 +44,17 @@ const Root = createBrowserRouter([
             },
             {
                 path: "/dashboard",
-                element: (
-                    <PrivateRoute>
-                        <Dashboard></Dashboard>
-                    </PrivateRoute>
-                ),
-            },
-            {
-                path: "/amis",
-                element: (
-                    <PrivateRoute>
-                        <AmiS></AmiS>
-                    </PrivateRoute>
-                ),
+                element: <Dashboard></Dashboard>,
+                children: [
+                    {
+                        path: '/dashboard',
+                        element: <AddProduct></AddProduct>
+                    },
+                    {
+                        path: '/dashboard/addProduct',
+                        element: <AddProductForm></AddProductForm>
+                    },
+                ]
             },
         ],
     },
