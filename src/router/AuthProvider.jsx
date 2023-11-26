@@ -6,7 +6,9 @@ import {
     GoogleAuthProvider,
     createUserWithEmailAndPassword,
     getAuth,
+
     onAuthStateChanged,
+
     signInWithEmailAndPassword,
     signInWithPopup,
     signOut,
@@ -19,7 +21,7 @@ const gitHubProvider = new GithubAuthProvider();
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     // Register with email and password
     const registerWithEmailPass = (email, password) => {

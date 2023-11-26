@@ -7,6 +7,9 @@ import CreateShop from "../pages/CreateShop/CreateShop";
 import ErrorPage from "./ErrorPage";
 import WatchDemo from "../pages/WatchDemo/WatchDemo";
 import Dashboard from "../pages/Dashboard/Dashboard";
+import PrivateRoute from "./PrivateRoute";
+import AmiS from "./AmiS";
+
 
 const Root = createBrowserRouter([
     {
@@ -28,18 +31,33 @@ const Root = createBrowserRouter([
             },
             {
                 path: "/create-shop",
-                element: <CreateShop></CreateShop>,
+                element: (
+                    <PrivateRoute>
+                        <CreateShop></CreateShop>
+                    </PrivateRoute>
+                ),
             },
 
             {
                 path: "/watch-demo",
-                element: <WatchDemo></WatchDemo>
+                element: <WatchDemo></WatchDemo>,
             },
             {
                 path: "/dashboard",
-                element: <Dashboard></Dashboard>
+                element: (
+                    <PrivateRoute>
+                        <Dashboard></Dashboard>
+                    </PrivateRoute>
+                ),
             },
-            
+            {
+                path: "/amis",
+                element: (
+                    <PrivateRoute>
+                        <AmiS></AmiS>
+                    </PrivateRoute>
+                ),
+            },
         ],
     },
 ]);
