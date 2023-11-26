@@ -18,7 +18,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../router/AuthProvider";
 import { PiUserCircleFill } from "react-icons/pi";
 
-const pages = ["Home", "create-shop", "Login", "Register"];
+const pages = ["Home", "create-shop", "Login", "Register", "Watch-Demo"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function Navbar() {

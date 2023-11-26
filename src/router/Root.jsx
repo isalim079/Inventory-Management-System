@@ -5,6 +5,7 @@ import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import CreateShop from "../pages/CreateShop/CreateShop";
 import ErrorPage from "./ErrorPage";
+import WatchDemo from "../pages/WatchDemo/WatchDemo";
 
 const Root = createBrowserRouter([
     {
@@ -28,6 +29,12 @@ const Root = createBrowserRouter([
                 path: "/create-shop",
                 element: <CreateShop></CreateShop>,
             },
+
+            {
+                path: "/watch-demo",
+                element: <WatchDemo></WatchDemo>
+            }
+            
         ],
     },
 ]);
