@@ -12,14 +12,23 @@ import * as React from "react";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { AuthContext } from "../../../router/AuthProvider";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+
+
 
 
 
 
 
 export default function ProductsSection() {
+
+
+
     const axiosPublic = useAxiosPublic();
     const { user } = React.useContext(AuthContext);
+
+    
+
 
     const [findShopManager, setFindShopManager] = React.useState([]);
 
@@ -34,6 +43,34 @@ export default function ProductsSection() {
         (users) => users?.userEmail === user?.email
     );
     // console.log(findShopOwner);
+
+    const handleDeleteItem = (productsInfo) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#B93B5E",
+            cancelButtonColor: "#B93B5E",
+            confirmButtonText: "Yes, delete it!",
+        })
+        .then(async(result) => {
+            if(result.isConfirmed) {
+                const res = await axiosPublic.delete(`/addProductsDB/${productsInfo?._id}`)
+                if (res.data.deletedCount > 0) {
+
+                    setFindShopManager( previousProducts => previousProducts.filter(updatedProducts => updatedProducts._id !== productsInfo?._id))
+
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your product has been deleted.",
+                        icon: "success",
+                    });
+                    
+                }
+            }
+        })
+    }
 
     return (
         <div className="p-10 mt-8">
@@ -93,7 +130,7 @@ export default function ProductsSection() {
                                 </TableCell>
                                 <TableCell align="center">
                                     <div className="flex justify-center">
-                                        <button>
+                                        <button onClick={() => handleDeleteItem(productsInfo)}>
                                             <RiDeleteBinLine className="border border-siteDefault p-[2px] text-2xl text-siteDefault " />
                                         </button>
                                     </div>
