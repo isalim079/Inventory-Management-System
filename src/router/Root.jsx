@@ -12,6 +12,7 @@ import AddProduct from "../pages/Dashboard/AddProduct/AddProduct";
 import AddProductForm from "../pages/Dashboard/AddProduct/AddProductForm";
 import Subscription from "../pages/Dashboard/Subscription/Subscription";
 import ProductsSection from "../pages/Dashboard/ProductsSection/ProductsSection";
+import UpdateProducts from "../pages/Dashboard/ProductsSection/UpdateProducts";
 
 const Root = createBrowserRouter([
     {
@@ -63,6 +64,11 @@ const Root = createBrowserRouter([
                     {
                         path: '/dashboard/productsSection',
                         element: <ProductsSection></ProductsSection>
+                    },
+                    {
+                        path: '/dashboard/updateProducts/:id',
+                        element: <UpdateProducts></UpdateProducts>,
+                        loader: ({params}) => fetch(`http://localhost:2800/addProductsDB/${params.id}`),
                     },
                 ]
             },

@@ -58,7 +58,12 @@ const AddProductForm = () => {
     }, [axiosPublic, user?.email]);
     // console.log(shopOwner);
 
-    const { register, handleSubmit, reset } = useForm();
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors },
+    } = useForm();
 
     const onSubmit = async (data) => {
         // console.log(data);
@@ -111,7 +116,7 @@ const AddProductForm = () => {
 
                     Swal.fire({
                         title: "You have reached your product limit",
-                        text: "You won't be able to add more products",
+                        text: "Basic products limit 3",
                         icon: "warning",
                         showCancelButton: true,
                         confirmButtonColor: "#B93B5E",
@@ -247,6 +252,11 @@ const AddProductForm = () => {
                                 Add product
                             </button>
                         </div>
+                        {errors.productImage && (
+                            <div className="text-red-600 text-center mt-4 border-b-2 pb-2">
+                                ** Please fill all the data **
+                            </div>
+                        )}
                     </div>
                 </form>
             </div>
