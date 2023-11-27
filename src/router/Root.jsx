@@ -10,6 +10,7 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import PrivateRoute from "./PrivateRoute";
 import AddProduct from "../pages/Dashboard/AddProduct/AddProduct";
 import AddProductForm from "../pages/Dashboard/AddProduct/AddProductForm";
+import Subscription from "../pages/Dashboard/Subscription/Subscription";
 
 const Root = createBrowserRouter([
     {
@@ -53,6 +54,10 @@ const Root = createBrowserRouter([
                     {
                         path: '/dashboard/addProduct',
                         element: <AddProductForm></AddProductForm>
+                    },
+                    {
+                        path: '/dashboard/subscription',
+                        element: <Subscription></Subscription>
                     },
                 ]
             },

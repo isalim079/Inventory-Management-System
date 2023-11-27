@@ -32,6 +32,7 @@ const CreateShop = () => {
             shopLocation,
             shopOwnerName,
             shopOwnerEmail,
+            productsLimit: 3,
         };
         // console.log(addShopDetails);
 
@@ -50,6 +51,7 @@ const CreateShop = () => {
                             shopId,
                             shopName,
                             shopLogo,
+                            
                         })
                         .then((res) => {
                             console.log("usersDB role updated", res.data);

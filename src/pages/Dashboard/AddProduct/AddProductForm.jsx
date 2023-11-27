@@ -8,6 +8,8 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../router/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const VisuallyHiddenInput = styled("input")({
     clip: "rect(0 0 0 0)",
@@ -31,6 +33,8 @@ const AddProductForm = () => {
     const date = today.getDate();
     const currentDate = date + "-" + month + "-" + year;
     // console.log(currentDate);
+
+    const navigate = useNavigate();
 
     const axiosPublic = useAxiosPublic();
 
@@ -91,18 +95,34 @@ const AddProductForm = () => {
                 saleCount: 0,
             };
 
-            const addProductDetailsDB = await axiosPublic.post(
-                "/addProductsDB",
-                addProductsDetails
-            );
-            console.log(addProductDetailsDB.data);
+            await axiosPublic
+                .post("/addProductsDB", addProductsDetails)
+                .then((res) => {
+                    console.log(res.data);
+                    if (res.data.insertedId) {
+                        toast.success("Your product successfully added", {
+                            position: "top-center",
+                        });
+                        reset();
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
 
-            if (addProductDetailsDB.data.insertedId) {
-                toast.success("Your product successfully added", {
-                    position: "top-center",
+                    Swal.fire({
+                        title: "You have reached your product limit",
+                        text: "You won't be able to add more products",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#B93B5E",
+                        cancelButtonColor: "#B93B5E",
+                        confirmButtonText: "Go for subscription",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            navigate("/dashboard/subscription");
+                        }
+                    });
                 });
-                reset();
-            }
         }
     };
 
