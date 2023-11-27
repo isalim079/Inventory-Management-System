@@ -13,6 +13,7 @@ import AddProductForm from "../pages/Dashboard/AddProduct/AddProductForm";
 import Subscription from "../pages/Dashboard/Subscription/Subscription";
 import ProductsSection from "../pages/Dashboard/ProductsSection/ProductsSection";
 import UpdateProducts from "../pages/Dashboard/ProductsSection/UpdateProducts";
+import ProductsSells from "../pages/Dashboard/ProductsSells/ProductsSells";
 
 const Root = createBrowserRouter([
     {
@@ -64,6 +65,10 @@ const Root = createBrowserRouter([
                     {
                         path: '/dashboard/productsSection',
                         element: <ProductsSection></ProductsSection>
+                    },
+                    {
+                        path: '/dashboard/productsSells',
+                        element: <ProductsSells></ProductsSells>
                     },
                     {
                         path: '/dashboard/updateProducts/:id',

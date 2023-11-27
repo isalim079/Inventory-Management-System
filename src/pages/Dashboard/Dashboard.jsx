@@ -1,17 +1,30 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../router/AuthProvider";
 import { BiCaretRight } from "react-icons/bi";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Dashboard = () => {
-    const { logOut } = useContext(AuthContext);
-    const navigate = useNavigate()
+    const { logOut, user } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic();
+
+    const [shopLogo, setShopLogo] = useState([]);
+
+    useEffect(() => {
+        axiosPublic.get("/imsUsersDB").then((res) => {
+            const userShopLogo = res.data.find(
+                (users) => users?.email === user?.email
+            );
+            setShopLogo(userShopLogo);
+        });
+    }, [axiosPublic, user?.email]);
 
     const handleSignOut = () => {
         logOut()
             .then(() => {
                 console.log("you have logged out successfully");
-                navigate("/")
+                navigate("/");
             })
             .catch((error) => {
                 console.log(error.code);
@@ -29,7 +42,13 @@ const Dashboard = () => {
         <>
             <div className="space-y-5">
                 <li>
-                    <NavLink to="/">Shop Logo</NavLink>
+                    <NavLink to="/">
+                        <img
+                            className="w-12 h-12 rounded-full"
+                            src={shopLogo?.shopLogo}
+                            alt=""
+                        />
+                    </NavLink>
                 </li>
 
                 <li>
@@ -39,9 +58,24 @@ const Dashboard = () => {
                     </button>
                     {menus && (
                         <ul className="ml-4 space-y-2 mt-2">
-                            <li><NavLink to="/dashboard">Dashboard</NavLink></li>
-                            <li><NavLink to="/dashboard/productsSection">Products Section</NavLink></li>
-                            <li>Coffee</li>
+                            <li>
+                                <NavLink to="/dashboard">Dashboard</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/addProduct">
+                                    Add Products
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/productsSection">
+                                    Products Section(Manage)
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/productsSells">
+                                    Products Sells
+                                </NavLink>
+                            </li>
                         </ul>
                     )}
                 </li>
