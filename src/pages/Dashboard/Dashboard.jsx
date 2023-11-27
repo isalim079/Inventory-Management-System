@@ -1,20 +1,53 @@
+import { useContext, useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
+import { AuthContext } from "../../router/AuthProvider";
+import { BiCaretRight } from "react-icons/bi";
 
 const Dashboard = () => {
+    const { logOut } = useContext(AuthContext);
+
+    const handleSignOut = () => {
+        logOut()
+            .then(() => {
+                console.log("you have logged out successfully");
+            })
+            .catch((error) => {
+                console.log(error.code);
+                console.log(error.message);
+            });
+    };
+
+    const [menus, setMenus] = useState(false);
+
+    const toggleMenus = () => {
+        setMenus(!menus);
+    };
+
     const navLinks = (
         <>
             <div className="space-y-5">
                 <li>
                     <NavLink to="/">Shop Logo</NavLink>
                 </li>
+
                 <li>
-                    <NavLink to="/">Menus</NavLink>
+                    <button onClick={toggleMenus} className="flex items-center">
+                        <span>Menus</span>
+                        <BiCaretRight className="text-lg" />
+                    </button>
+                    {menus && (
+                        <ul className="ml-4 space-y-2 mt-2">
+                            <li><NavLink to="/dashboard/productsSection">Products Section</NavLink></li>
+                            <li>Coffee</li>
+                        </ul>
+                    )}
                 </li>
+
                 <li>
                     <NavLink to="/">Home</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/">Logout</NavLink>
+                    <NavLink onClick={handleSignOut}>Logout</NavLink>
                 </li>
             </div>
         </>
@@ -24,10 +57,10 @@ const Dashboard = () => {
         <div>
             <div className="flex">
                 <div className="w-64 h-screen p-10 bg-siteDefault text-white list-none flex justify-center ">
-                        {navLinks}
+                    {navLinks}
                 </div>
                 <div className="flex-1">
-                        <Outlet></Outlet>
+                    <Outlet></Outlet>
                 </div>
             </div>
         </div>
