@@ -86,7 +86,7 @@ const AddProductForm = () => {
             const addProductsDetails = {
                 productName: data.productName,
                 productImage: res.data.data.display_url,
-                productQuantity: data.productQuantity,
+                productQuantity: parseInt(data.productQuantity),
                 productLocation: data.productLocation,
                 productionCost: data.productionCost,
                 profitMargin: data.profitMargin,

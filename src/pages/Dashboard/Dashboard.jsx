@@ -76,10 +76,18 @@ const Dashboard = () => {
                                     Products Sells
                                 </NavLink>
                             </li>
+                            <li>
+                                <NavLink to="/dashboard/checkoutProduct">
+                                    Checkout Product
+                                </NavLink>
+                            </li>
                         </ul>
                     )}
                 </li>
 
+                <li>
+                    <NavLink to="/dashboard/check-outCart">Check-out Cart(0)</NavLink>
+                </li>
                 <li>
                     <NavLink to="/">Home</NavLink>
                 </li>

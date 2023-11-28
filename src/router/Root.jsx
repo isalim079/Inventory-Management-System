@@ -14,6 +14,8 @@ import Subscription from "../pages/Dashboard/Subscription/Subscription";
 import ProductsSection from "../pages/Dashboard/ProductsSection/ProductsSection";
 import UpdateProducts from "../pages/Dashboard/ProductsSection/UpdateProducts";
 import ProductsSells from "../pages/Dashboard/ProductsSells/ProductsSells";
+import CheckoutProductSection from "../pages/Dashboard/CheckoutProductSection/CheckoutProductSection";
+import CheckoutCart from "../pages/Dashboard/CheckoutProductSection/CheckoutCart";
 
 const Root = createBrowserRouter([
     {
@@ -69,6 +71,14 @@ const Root = createBrowserRouter([
                     {
                         path: '/dashboard/productsSells',
                         element: <ProductsSells></ProductsSells>
+                    },
+                    {
+                        path: '/dashboard/checkoutProduct',
+                        element: <CheckoutProductSection></CheckoutProductSection>
+                    },
+                    {
+                        path: '/dashboard/check-outCart',
+                        element: <CheckoutCart></CheckoutCart>
                     },
                     {
                         path: '/dashboard/updateProducts/:id',
