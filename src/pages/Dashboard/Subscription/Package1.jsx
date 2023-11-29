@@ -1,4 +1,3 @@
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -7,49 +6,37 @@ import { useContext, useEffect, useState } from "react";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { AuthContext } from "../../../router/AuthProvider";
 
-
-
-
-
 const Package1 = () => {
     const [error, setError] = useState("");
-    const [clientSecret, setClientSecret] = useState('')
-//     console.log(clientSecret);
-    const [transactionId, setTransactionId] = useState('')
+    const [clientSecret, setClientSecret] = useState("");
+    //     console.log(clientSecret);
+    const [transactionId, setTransactionId] = useState("");
 
     const stripe = useStripe();
     const elements = useElements();
-    const axiosPublic = useAxiosPublic()
-    const {user} = useContext(AuthContext)
+    const axiosPublic = useAxiosPublic();
+    const { user } = useContext(AuthContext);
 
+    // const [findUser, setFindUser] = useState([]);
 
+    // useEffect(() => {
+    //     axiosPublic.get("/shopCollectionsDB").then((res) => {
+    //         // console.log(res.data);
+    //         //  const findUserData = res.data.find(users => users?.shopOwnerEmail === user?.email)
+    //         setFindUser(res.data);
+    //     });
+    // }, [axiosPublic, user?.email]);
 
-    const [findUser, setFindUser] = useState([])
-
-    useEffect(() => {
-     axiosPublic.get("/shopCollectionsDB")
-     .then(res => {
-         // console.log(res.data);
-        //  const findUserData = res.data.find(users => users?.shopOwnerEmail === user?.email)
-         setFindUser(res.data)
-     })
-    }, [ axiosPublic, user?.email])
- 
-    console.log(findUser);
-
-
+    // console.log(findUser);
 
     useEffect(() => {
-        axiosPublic.post("/create-payment-intent", { price: 10 })
-        .then(res => {
-            console.log(res.data.clientSecret)
-            setClientSecret(res.data.clientSecret)
-        })
+        axiosPublic
+            .post("/create-payment-intent", { price: 10 })
+            .then((res) => {
+                console.log(res.data.clientSecret);
+                setClientSecret(res.data.clientSecret);
+            });
     }, [axiosPublic]);
-
-    
- 
- 
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -74,49 +61,56 @@ const Package1 = () => {
         }
 
         // confirm payment
-        const {paymentIntent, error: confirmError} = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: {
-                card: card,
-                billing_details: {
-                    email: user?.email || 'anonymous',
-                    name: user?.displayName || 'anonymous'
-                }
-            }
-        })
-        if(confirmError) {
-            console.log('confirm error')
-        }
+        const { paymentIntent, error: confirmError } =
+            await stripe.confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: card,
+                    billing_details: {
+                        email: user?.email || "anonymous",
+                        name: user?.displayName || "anonymous",
+                    },
+                },
+            });
+        if (confirmError) {
+            console.log("confirm error");
+        } else {
+            console.log("payment intent", paymentIntent);
+            if (paymentIntent.status === "succeeded") {
+               
+                // increase limit for shopUser
+                let productsLimitIncrease = +200
 
-        
+                axiosPublic.patch(`/shopCollectionsDB/${user?.email}/increaseLimit`, {productsLimitIncrease: productsLimitIncrease})
+                .then(res => {
+                    console.log(res.data);
 
-        else{
-            console.log('payment intent', paymentIntent)
-            if(paymentIntent.status === 'succeeded'){
+                    
+
+                })
+                .catch(error => {
+                    console.log(error);
+                })
 
 
-                // const findId = findUser.find(users => users?.shopOwnerEmail === user?.email)
-                // console.log(findId?._id);
-
-                // axiosPublic.patch(`/shopCollectionsDB/${findId?._id}`, {productsList: +200})
-                // .then(res => {
-                //     console.log(res.data);
-                // })
-                // .catch(error => {
-                //     console.log(error);
-                // })
+                // increase income for admin
                 
-                toast.success("payment successful. your limit increased")
+                let income = +10
+                axiosPublic.patch(`/imsUsersDB`, {income: income})
+                .then(res => {
+                    console.log(res.data);
+                })
+                .catch(error => {
+                    console.log(error);
+                })
 
-                
 
-                console.log('transaction id', paymentIntent.id);
-                setTransactionId(paymentIntent.id)
+                toast.success("payment successful. your limit increased");
 
+                console.log("transaction id", paymentIntent.id);
+                setTransactionId(paymentIntent.id);
             }
         }
     };
-
-   
 
     return (
         <form onSubmit={handleSubmit}>
@@ -144,12 +138,13 @@ const Package1 = () => {
                 purchase
             </button>
             <p className="text-red-600">{error}</p>
-            {
-                transactionId && <p className="text-green-600">Your transaction id: {transactionId}</p>
-            }
+            {transactionId && (
+                <p className="text-green-600">
+                    Your transaction id: {transactionId}
+                </p>
+            )}
             <ToastContainer></ToastContainer>
         </form>
-        
     );
 };
 

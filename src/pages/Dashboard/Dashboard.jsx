@@ -20,6 +20,8 @@ const Dashboard = () => {
         });
     }, [axiosPublic, user?.email]);
 
+    // console.log(shopLogo.role);
+
     const handleSignOut = () => {
         logOut()
             .then(() => {
@@ -103,6 +105,11 @@ const Dashboard = () => {
                 <li>
                     <NavLink to="/dashboard/check-outCart">Check-out Cart</NavLink>
                 </li>
+               {
+                    shopLogo?.role === "admin" ?  <li>
+                    <NavLink to="/dashboard/manageShop">Manage Shop</NavLink>
+                </li> : ""
+               }
                 <li>
                     <NavLink to="/">Home</NavLink>
                 </li>

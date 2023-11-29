@@ -1,35 +1,29 @@
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useContext, useEffect, useState } from "react";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { AuthContext } from "../../../router/AuthProvider";
 
-
-
-
-
 const Package2 = () => {
     const [error, setError] = useState("");
-    const [clientSecret, setClientSecret] = useState('')
-//     console.log(clientSecret);
-    const [transactionId, setTransactionId] = useState('')
+    const [clientSecret, setClientSecret] = useState("");
+    //     console.log(clientSecret);
+    const [transactionId, setTransactionId] = useState("");
 
     const stripe = useStripe();
     const elements = useElements();
-    const axiosPublic = useAxiosPublic()
-    const {user} = useContext(AuthContext)
-
-
+    const axiosPublic = useAxiosPublic();
+    const { user } = useContext(AuthContext);
 
     useEffect(() => {
-        axiosPublic.post("/create-payment-intent", { price: 20 })
-        .then(res => {
-            console.log(res.data.clientSecret)
-            setClientSecret(res.data.clientSecret)
-        })
+        axiosPublic
+            .post("/create-payment-intent", { price: 20 })
+            .then((res) => {
+                console.log(res.data.clientSecret);
+                setClientSecret(res.data.clientSecret);
+            });
     }, [axiosPublic]);
 
     const handleSubmit = async (event) => {
@@ -55,34 +49,52 @@ const Package2 = () => {
         }
 
         // confirm payment
-        const {paymentIntent, error: confirmError} = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: {
-                card: card,
-                billing_details: {
-                    email: user?.email || 'anonymous',
-                    name: user?.displayName || 'anonymous'
-                }
-            }
-        })
-        if(confirmError) {
-            console.log('confirm error')
-        }
-        else{
-            console.log('payment intent', paymentIntent)
-            if(paymentIntent.status === 'succeeded'){
+        const { paymentIntent, error: confirmError } =
+            await stripe.confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: card,
+                    billing_details: {
+                        email: user?.email || "anonymous",
+                        name: user?.displayName || "anonymous",
+                    },
+                },
+            });
+        if (confirmError) {
+            console.log("confirm error");
+        } else {
+            console.log("payment intent", paymentIntent);
+            if (paymentIntent.status === "succeeded") {
 
-                toast.success("payment successful. your limit increased")
+                //increase limit for shopUser
+                let productsLimitIncrease = +450
 
-                console.log('transaction id', paymentIntent.id);
-                setTransactionId(paymentIntent.id)
+                axiosPublic.patch(`/shopCollectionsDB/${user?.email}/increaseLimit`, {productsLimitIncrease: productsLimitIncrease})
+                .then(res => {
+                    console.log(res.data);
+                })
+                .catch(error => {
+                    console.log(error);
+                })
 
-                // now save the payment info in the database
-                // const payment = {
-                //     email: user?.email,
-                //     price: totalPrice,
-                //     date: new Date(), // utc date convert. use moment js
-                //     // cartId: cart.map(item => )
-                // }
+                  // increase income for admin
+                
+                  let income = +20
+                  axiosPublic.patch(`/imsUsersDB`, {income: income})
+                  .then(res => {
+                      console.log(res.data);
+                  })
+                  .catch(error => {
+                      console.log(error);
+                  })
+  
+
+
+                toast.success("payment successful. your limit increased");
+
+                console.log("transaction id", paymentIntent.id);
+                setTransactionId(paymentIntent.id);
+
+            
             }
         }
     };
@@ -113,9 +125,11 @@ const Package2 = () => {
                 purchase
             </button>
             <p className="text-red-600">{error}</p>
-            {
-                transactionId && <p className="text-green-600">Your transaction id: {transactionId}</p>
-            }
+            {transactionId && (
+                <p className="text-green-600">
+                    Your transaction id: {transactionId}
+                </p>
+            )}
             <ToastContainer></ToastContainer>
         </form>
     );
