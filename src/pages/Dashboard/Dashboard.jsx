@@ -57,7 +57,7 @@ const Dashboard = () => {
                         <BiCaretRight className="text-lg" />
                     </button>
                     {menus && (
-                        <ul className="ml-4 space-y-2 mt-2">
+                        <ul className="ml-4 space-y-5 mt-2">
                             <li>
                                 <NavLink to="/dashboard">Dashboard</NavLink>
                             </li>
@@ -81,12 +81,27 @@ const Dashboard = () => {
                                     Checkout Product
                                 </NavLink>
                             </li>
+                            <li>
+                                <NavLink to="/dashboard/subscription">
+                                    Subscription
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/salesCount">
+                                    Sales Count
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/salesHistory">
+                                    Sales History
+                                </NavLink>
+                            </li>
                         </ul>
                     )}
                 </li>
 
                 <li>
-                    <NavLink to="/dashboard/check-outCart">Check-out Cart(0)</NavLink>
+                    <NavLink to="/dashboard/check-outCart">Check-out Cart</NavLink>
                 </li>
                 <li>
                     <NavLink to="/">Home</NavLink>

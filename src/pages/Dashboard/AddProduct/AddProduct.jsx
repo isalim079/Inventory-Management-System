@@ -36,7 +36,7 @@ const AddProduct = () => {
                     </h1>
                 </div>
                 <div>
-                    {shopOwner?.role === "manager" ? (
+                    {shopOwner?.role === "manager" || shopOwner?.role === "admin" ? (
                         <Link to="/dashboard/addProduct">
                             <button className="border-2 border-siteDefaultSecond px-2 py-3 font-medium text-white bg-siteDefaultSecond">
                                 Add Product

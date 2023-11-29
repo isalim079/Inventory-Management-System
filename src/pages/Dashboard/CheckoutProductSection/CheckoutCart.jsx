@@ -54,15 +54,16 @@ const CheckoutCart = () => {
     const handleGetPaid = (productsInfo) => {
 
       
-        const {productName, discount, sellingPrice, shopName, _id} = productsInfo
+        const {productName, discount, sellingPrice, shopName, _id, productionCost, userEmail} = productsInfo
 
         const salesData = {
             shopName: shopName,
             productId: _id,
             productName,
-            sellingPrice,
+            sellingPrice: parseFloat(sellingPrice),
             discount,
-            
+            productionCost: parseFloat(productionCost),
+            userEmail,
             currentTime
         };
 

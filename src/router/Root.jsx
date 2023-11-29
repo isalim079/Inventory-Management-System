@@ -16,6 +16,8 @@ import UpdateProducts from "../pages/Dashboard/ProductsSection/UpdateProducts";
 import ProductsSells from "../pages/Dashboard/ProductsSells/ProductsSells";
 import CheckoutProductSection from "../pages/Dashboard/CheckoutProductSection/CheckoutProductSection";
 import CheckoutCart from "../pages/Dashboard/CheckoutProductSection/CheckoutCart";
+import SalesCount from "../pages/Dashboard/SalesSummary/SalesCount";
+import SalesHistory from "../pages/Dashboard/SalesSummary/SalesHistory";
 
 const Root = createBrowserRouter([
     {
@@ -79,6 +81,14 @@ const Root = createBrowserRouter([
                     {
                         path: '/dashboard/check-outCart',
                         element: <CheckoutCart></CheckoutCart>
+                    },
+                    {
+                        path: '/dashboard/salesCount',
+                        element: <SalesCount></SalesCount>
+                    },
+                    {
+                        path: '/dashboard/salesHistory',
+                        element: <SalesHistory></SalesHistory>
                     },
                     {
                         path: '/dashboard/updateProducts/:id',
