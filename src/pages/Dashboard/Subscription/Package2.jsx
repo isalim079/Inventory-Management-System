@@ -64,37 +64,36 @@ const Package2 = () => {
         } else {
             console.log("payment intent", paymentIntent);
             if (paymentIntent.status === "succeeded") {
-
                 //increase limit for shopUser
-                let productsLimitIncrease = +450
+                let productsLimitIncrease = +450;
 
-                axiosPublic.patch(`/shopCollectionsDB/${user?.email}/increaseLimit`, {productsLimitIncrease: productsLimitIncrease})
-                .then(res => {
-                    console.log(res.data);
-                })
-                .catch(error => {
-                    console.log(error);
-                })
+                axiosPublic
+                    .patch(`/shopCollectionsDB/${user?.email}/increaseLimit`, {
+                        productsLimitIncrease: productsLimitIncrease,
+                    })
+                    .then((res) => {
+                        console.log(res.data);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
 
-                  // increase income for admin
-                
-                  let income = +20
-                  axiosPublic.patch(`/imsUsersDB`, {income: income})
-                  .then(res => {
-                      console.log(res.data);
-                  })
-                  .catch(error => {
-                      console.log(error);
-                  })
-  
+                // increase income for admin
 
+                let income = +20;
+                axiosPublic
+                    .patch(`/imsUsersDB`, { income: income })
+                    .then((res) => {
+                        console.log(res.data);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
 
                 toast.success("payment successful. your limit increased");
 
                 console.log("transaction id", paymentIntent.id);
                 setTransactionId(paymentIntent.id);
-
-            
             }
         }
     };

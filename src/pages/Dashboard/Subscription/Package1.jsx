@@ -76,33 +76,31 @@ const Package1 = () => {
         } else {
             console.log("payment intent", paymentIntent);
             if (paymentIntent.status === "succeeded") {
-               
                 // increase limit for shopUser
-                let productsLimitIncrease = +200
+                let productsLimitIncrease = +200;
 
-                axiosPublic.patch(`/shopCollectionsDB/${user?.email}/increaseLimit`, {productsLimitIncrease: productsLimitIncrease})
-                .then(res => {
-                    console.log(res.data);
-
-                    
-
-                })
-                .catch(error => {
-                    console.log(error);
-                })
-
+                axiosPublic
+                    .patch(`/shopCollectionsDB/${user?.email}/increaseLimit`, {
+                        productsLimitIncrease: productsLimitIncrease,
+                    })
+                    .then((res) => {
+                        console.log(res.data);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
 
                 // increase income for admin
-                
-                let income = +10
-                axiosPublic.patch(`/imsUsersDB`, {income: income})
-                .then(res => {
-                    console.log(res.data);
-                })
-                .catch(error => {
-                    console.log(error);
-                })
 
+                let income = +10;
+                axiosPublic
+                    .patch(`/imsUsersDB`, { income: income })
+                    .then((res) => {
+                        console.log(res.data);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
 
                 toast.success("payment successful. your limit increased");
 

@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import emailjs from "@emailjs/browser";
 
 const ManageShop = () => {
     const axiosPublic = useAxiosPublic();
@@ -53,8 +54,9 @@ const ManageShop = () => {
             Swal.fire({
                 title: "Write your notice",
                 html:
-                    '<input id="email" class="swal2-input" placeholder="Manager email">' +
-                    '<input id="notice" class="swal2-input" placeholder="Your notice" type="email">',
+                    '<input id="email" class="swal2-input" placeholder="Manager email" type="email">' +
+                    '<input id="subject" class="swal2-input" placeholder="Subject" type="text">' +
+                    '<input id="message" class="swal2-input" placeholder="Your notice" type="text">',
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
@@ -62,11 +64,30 @@ const ManageShop = () => {
                 confirmButtonText: "Send!",
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire({
-                        title: "sent!",
-                        text: "Your notice has been sent.",
-                        icon: "success",
-                    });
+                    const email = document.getElementById("email").value;
+                    const subject = document.getElementById("subject").value;
+                    const message = document.getElementById("message").value;
+
+                    emailjs
+                        .send(
+                            "service_95hipyr",
+                            "template_ndfql8v",
+                            {
+                                to_email: email,
+                                from_name: "admin",
+                                subject: subject,
+                                message: message,
+                            },
+                            "op_pyxepaT9cSnw_o"
+                        )
+                        .then((res) => {
+                            console.log("email sent", res.status, res.text);
+                            Swal.fire({
+                                title: "sent!",
+                                text: "Your notice has been sent.",
+                                icon: "success",
+                            });
+                        });
                 }
             });
         } else {

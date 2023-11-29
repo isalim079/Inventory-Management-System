@@ -110,6 +110,16 @@ const Dashboard = () => {
                     <NavLink to="/dashboard/manageShop">Manage Shop</NavLink>
                 </li> : ""
                }
+               {
+                    shopLogo?.role === "admin" ?  <li>
+                    <NavLink to="/dashboard/salesView">Sales View</NavLink>
+                </li> : ""
+               }
+               {
+                    shopLogo?.role === "admin" ?  <li>
+                    <NavLink to="/dashboard/usersSection">Users Section</NavLink>
+                </li> : ""
+               }
                 <li>
                     <NavLink to="/">Home</NavLink>
                 </li>

@@ -19,6 +19,8 @@ import CheckoutCart from "../pages/Dashboard/CheckoutProductSection/CheckoutCart
 import SalesCount from "../pages/Dashboard/SalesSummary/SalesCount";
 import SalesHistory from "../pages/Dashboard/SalesSummary/SalesHistory";
 import ManageShop from "../pages/Dashboard/ManageShop/ManageShop";
+import SalesView from "../pages/Dashboard/SalesSummary/SalesView";
+import UsersSection from "../pages/Dashboard/SalesSummary/UsersSection";
 
 const Root = createBrowserRouter([
     {
@@ -94,6 +96,14 @@ const Root = createBrowserRouter([
                     {
                         path: '/dashboard/salesHistory',
                         element: <SalesHistory></SalesHistory>
+                    },
+                    {
+                        path: '/dashboard/salesView',
+                        element: <SalesView></SalesView>
+                    },
+                    {
+                        path: '/dashboard/usersSection',
+                        element: <UsersSection></UsersSection>
                     },
                     {
                         path: '/dashboard/updateProducts/:id',
