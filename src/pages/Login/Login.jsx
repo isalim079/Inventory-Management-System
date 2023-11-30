@@ -35,11 +35,11 @@ const Login = () => {
                     );
                     if (existingEmail?.shopId) {
                         navigate(
-                            location?.state ? location.state : "/dashboard"
+                            "/dashboard"
                         );
                     } else {
                         navigate(
-                            location?.state ? location.state : "/create-shop"
+                           "/create-shop"
                         );
                     }
                 });
