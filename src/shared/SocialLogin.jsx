@@ -39,15 +39,21 @@ const SocialLogin = () => {
                     const userExists = imsUsers.some(
                         (imsUser) => imsUser.email === userData.email
                     );
+                    const userPath = imsUsers.find(
+                        (imsUser) => imsUser.email === userData.email
+                    );
 
                     if (!userExists) {
-                        fetch("https://assignment-12-server-nu-seven.vercel.app/imsUsersDB", {
-                            method: "POST",
-                            headers: {
-                                "content-type": "application/json",
-                            },
-                            body: JSON.stringify(userData),
-                        })
+                        fetch(
+                            "https://assignment-12-server-nu-seven.vercel.app/imsUsersDB",
+                            {
+                                method: "POST",
+                                headers: {
+                                    "content-type": "application/json",
+                                },
+                                body: JSON.stringify(userData),
+                            }
+                        )
                             .then((res) => res.json())
                             .then((data) => {
                                 console.log(data);
@@ -57,11 +63,21 @@ const SocialLogin = () => {
                                     );
                                 }
                             });
-                    }
+                        }
+                        if(userPath?.shopId){
+                            navigate(location?.state ? location.state : "/dashboard");
+                        }
+                        else{
+                            navigate(location?.state ? location.state : "/create-shop");
+                        }
+
+                    
                 }
 
+              
+
                 console.log(res);
-                navigate(location?.state ? location.state : "/create-shop");
+               
             })
             .catch((error) => {
                 console.log(error.code);

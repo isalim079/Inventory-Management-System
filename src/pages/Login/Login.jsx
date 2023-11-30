@@ -35,11 +35,11 @@ const Login = () => {
                     );
                     if (existingEmail?.shopId) {
                         navigate(
-                            "/dashboard"
+                            location?.state ? location.state : "/dashboard"
                         );
                     } else {
                         navigate(
-                           "/create-shop"
+                            location?.state ? location.state : "/create-shop"
                         );
                     }
                 });
@@ -64,6 +64,7 @@ const Login = () => {
                     <div className="">
                         <img src={loginImage} alt="" />
                     </div>
+                    <div>
                     <form onSubmit={handleLogin}>
                         <h1 className="text-center mb-5 text-3xl font-semibold text-siteDefault">
                             IMS Login
@@ -104,8 +105,9 @@ const Login = () => {
                                 Register Now!!
                             </Link>
                         </p>
-                        <SocialLogin></SocialLogin>
                     </form>
+                        <SocialLogin></SocialLogin>
+                    </div>
                 </div>
             </div>
             <ToastContainer></ToastContainer>
