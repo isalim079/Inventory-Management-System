@@ -13,11 +13,12 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { AuthContext } from "../../../router/AuthProvider";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 export default function ProductsSection() {
     const axiosPublic = useAxiosPublic();
     const { user } = React.useContext(AuthContext);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const [findShopManager, setFindShopManager] = React.useState([]);
 
@@ -33,43 +34,43 @@ export default function ProductsSection() {
     );
     // console.log(findShopOwner);
 
-    const handleAddToCart = productsInfo => {
-
+    const handleAddToCart = (productsInfo) => {
         const productsDetails = {
             productsId: productsInfo?._id,
-            productsInfo
-        }
+            productsInfo,
+        };
 
         console.log(productsInfo);
-        if(user?.email) {
-            axiosPublic.post("/checkoutProductsDB", productsDetails)
-            .then(res => {
-                console.log(res.data);
-                if(res.data.insertedId){
-                    Swal.fire({
-                        title: "Added to the checkout cart",
-                        text: "You can show it on checkout Product section",
-                        icon: "success",
-                        showCancelButton: true,
-                        confirmButtonColor: "#B93B5E",
-                        cancelButtonColor: "#B93B5E",
-                        confirmButtonText: "Checkout Cart",
-                    })
-                    .then(result => {
-                        if (result.isConfirmed) {
-                            navigate("/dashboard/check-outCart");
-                        }
-                    })
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            })
+        if (user?.email) {
+            axiosPublic
+                .post("/checkoutProductsDB", productsDetails)
+                .then((res) => {
+                    console.log(res.data);
+                    if (res.data.insertedId) {
+                        Swal.fire({
+                            title: "Added to the checkout cart",
+                            text: "You can show it on checkout Product section",
+                            icon: "success",
+                            showCancelButton: true,
+                            confirmButtonColor: "#B93B5E",
+                            cancelButtonColor: "#B93B5E",
+                            confirmButtonText: "Checkout Cart",
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                navigate("/dashboard/check-outCart");
+                            }
+                        });
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         }
-    }
+    };
 
     return (
         <div className="p-10 mt-8">
+            <Helmet><title>IMS || Checkout Product</title></Helmet>
             <div>
                 <h1 className="text-center text-3xl mb-10 border-b-2 border-siteDefaultSecond text-siteDefaultSecond pb-2">
                     Products Section
@@ -125,7 +126,11 @@ export default function ProductsSection() {
 
                                 <TableCell align="center">
                                     <div>
-                                        <button onClick={() => handleAddToCart(productsInfo)}>
+                                        <button
+                                            onClick={() =>
+                                                handleAddToCart(productsInfo)
+                                            }
+                                        >
                                             <MdOutlineShoppingCartCheckout className="text-3xl border-2 text-siteDefault border-siteDefault p-[2px]" />
                                         </button>
                                     </div>

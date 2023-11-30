@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../router/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Helmet } from "react-helmet-async";
 
 const AddProduct = () => {
     const axiosPublic = useAxiosPublic();
@@ -29,6 +30,7 @@ const AddProduct = () => {
 
     return (
         <div className="h-screen flex justify-center items-center">
+            <Helmet><title>IMS || Add Product</title></Helmet>
             <div className="flex items-center">
                 <div>
                     <h1 className=" border-2 border-siteDefaultSecond w-96 pl-4 py-3 text-siteDefaultSecond">
@@ -36,7 +38,8 @@ const AddProduct = () => {
                     </h1>
                 </div>
                 <div>
-                    {shopOwner?.role === "manager" || shopOwner?.role === "admin" ? (
+                    {shopOwner?.role === "manager" ||
+                    shopOwner?.role === "admin" ? (
                         <Link to="/dashboard/addProduct">
                             <button className="border-2 border-siteDefaultSecond px-2 py-3 font-medium text-white bg-siteDefaultSecond">
                                 Add Product

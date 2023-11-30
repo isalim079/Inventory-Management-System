@@ -3,6 +3,7 @@ import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../router/AuthProvider";
 import { BiCaretRight } from "react-icons/bi";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { Helmet } from "react-helmet-async";
 
 const Dashboard = () => {
     const { logOut, user } = useContext(AuthContext);
@@ -103,23 +104,35 @@ const Dashboard = () => {
                 </li>
 
                 <li>
-                    <NavLink to="/dashboard/check-outCart">Check-out Cart</NavLink>
+                    <NavLink to="/dashboard/check-outCart">
+                        Check-out Cart
+                    </NavLink>
                 </li>
-               {
-                    shopLogo?.role === "admin" ?  <li>
-                    <NavLink to="/dashboard/manageShop">Manage Shop</NavLink>
-                </li> : ""
-               }
-               {
-                    shopLogo?.role === "admin" ?  <li>
-                    <NavLink to="/dashboard/salesView">Sales View</NavLink>
-                </li> : ""
-               }
-               {
-                    shopLogo?.role === "admin" ?  <li>
-                    <NavLink to="/dashboard/usersSection">Users Section</NavLink>
-                </li> : ""
-               }
+                {shopLogo?.role === "admin" ? (
+                    <li>
+                        <NavLink to="/dashboard/manageShop">
+                            Manage Shop
+                        </NavLink>
+                    </li>
+                ) : (
+                    ""
+                )}
+                {shopLogo?.role === "admin" ? (
+                    <li>
+                        <NavLink to="/dashboard/salesView">Sales View</NavLink>
+                    </li>
+                ) : (
+                    ""
+                )}
+                {shopLogo?.role === "admin" ? (
+                    <li>
+                        <NavLink to="/dashboard/usersSection">
+                            Users Section
+                        </NavLink>
+                    </li>
+                ) : (
+                    ""
+                )}
                 <li>
                     <NavLink to="/">Home</NavLink>
                 </li>
@@ -132,6 +145,7 @@ const Dashboard = () => {
 
     return (
         <div>
+            <Helmet><title>IMS || Dashboard</title></Helmet>
             <div className="flex">
                 <div className="w-64 h-screen p-10 bg-siteDefault text-white list-none flex justify-center ">
                     {navLinks}

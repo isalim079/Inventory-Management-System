@@ -9,6 +9,7 @@ import {
     Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const ProductsSells = () => {
     const axiosPublic = useAxiosPublic();
@@ -41,6 +42,7 @@ const ProductsSells = () => {
 
     return (
         <div className="flex justify-center">
+            <Helmet><title>IMS || Product Sells</title></Helmet>
             <div className=" p-10 mt-10">
                 <div>
                     <h1 className="text-center mb-10 text-3xl border-b-2 border-siteDefaultSecond pb-4">

@@ -58,59 +58,114 @@ const Root = createBrowserRouter([
                 element: <Dashboard></Dashboard>,
                 children: [
                     {
-                        path: '/dashboard',
-                        element: <AddProduct></AddProduct>
+                        path: "/dashboard",
+                        element: (
+                            <PrivateRoute>
+                                <AddProduct></AddProduct>
+                            </PrivateRoute>
+                        ),
                     },
                     {
-                        path: '/dashboard/addProduct',
-                        element: <AddProductForm></AddProductForm>
+                        path: "/dashboard/addProduct",
+                        element: (
+                            <PrivateRoute>
+                                <AddProductForm></AddProductForm>
+                            </PrivateRoute>
+                        ),
                     },
                     {
-                        path: '/dashboard/subscription',
-                        element: <Subscription></Subscription>
+                        path: "/dashboard/subscription",
+                        element: (
+                            <PrivateRoute>
+                                <Subscription></Subscription>
+                            </PrivateRoute>
+                        ),
                     },
                     {
-                        path: '/dashboard/productsSection',
-                        element: <ProductsSection></ProductsSection>
+                        path: "/dashboard/productsSection",
+                        element: (
+                            <PrivateRoute>
+                                <ProductsSection></ProductsSection>
+                            </PrivateRoute>
+                        ),
                     },
                     {
-                        path: '/dashboard/productsSells',
-                        element: <ProductsSells></ProductsSells>
+                        path: "/dashboard/productsSells",
+                        element: (
+                            <PrivateRoute>
+                                <ProductsSells></ProductsSells>
+                            </PrivateRoute>
+                        ),
                     },
                     {
-                        path: '/dashboard/checkoutProduct',
-                        element: <CheckoutProductSection></CheckoutProductSection>
+                        path: "/dashboard/checkoutProduct",
+                        element: (
+                            <PrivateRoute>
+                                <CheckoutProductSection></CheckoutProductSection>
+                            </PrivateRoute>
+                        ),
                     },
                     {
-                        path: '/dashboard/check-outCart',
-                        element: <CheckoutCart></CheckoutCart>
+                        path: "/dashboard/check-outCart",
+                        element: (
+                            <PrivateRoute>
+                                <CheckoutCart></CheckoutCart>
+                            </PrivateRoute>
+                        ),
                     },
                     {
-                        path: '/dashboard/salesCount',
-                        element: <SalesCount></SalesCount>
+                        path: "/dashboard/salesCount",
+                        element: (
+                            <PrivateRoute>
+                                <SalesCount></SalesCount>
+                            </PrivateRoute>
+                        ),
                     },
                     {
-                        path: '/dashboard/manageShop',
-                        element: <ManageShop></ManageShop>
+                        path: "/dashboard/manageShop",
+                        element: (
+                            <PrivateRoute>
+                                <ManageShop></ManageShop>
+                            </PrivateRoute>
+                        ),
                     },
                     {
-                        path: '/dashboard/salesHistory',
-                        element: <SalesHistory></SalesHistory>
+                        path: "/dashboard/salesHistory",
+                        element: (
+                            <PrivateRoute>
+                                <SalesHistory></SalesHistory>
+                            </PrivateRoute>
+                        ),
                     },
                     {
-                        path: '/dashboard/salesView',
-                        element: <SalesView></SalesView>
+                        path: "/dashboard/salesView",
+                        element: (
+                            <PrivateRoute>
+                                <SalesView></SalesView>
+                            </PrivateRoute>
+                        ),
                     },
                     {
-                        path: '/dashboard/usersSection',
-                        element: <UsersSection></UsersSection>
+                        path: "/dashboard/usersSection",
+                        element: (
+                            <PrivateRoute>
+                                <UsersSection></UsersSection>
+                            </PrivateRoute>
+                        ),
                     },
                     {
-                        path: '/dashboard/updateProducts/:id',
-                        element: <UpdateProducts></UpdateProducts>,
-                        loader: ({params}) => fetch(`http://localhost:2800/addProductsDB/${params.id}`),
+                        path: "/dashboard/updateProducts/:id",
+                        element: (
+                            <PrivateRoute>
+                                <UpdateProducts></UpdateProducts>
+                            </PrivateRoute>
+                        ),
+                        loader: ({ params }) =>
+                            fetch(
+                                `https://assignment-12-server-nu-seven.vercel.app/addProductsDB/${params.id}`
+                            ),
                     },
-                ]
+                ],
             },
         ],
     },

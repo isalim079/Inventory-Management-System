@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import { Helmet } from "react-helmet-async";
 
 const SalesView = () => {
     const axiosPublic = useAxiosPublic();
@@ -40,6 +41,7 @@ const SalesView = () => {
 
     return (
         <div className="">
+            <Helmet><title>IMS || Sales View</title></Helmet>
             <div className="flex justify-center">
                 <h1 className="text-center mt-24 mb-10 text-4xl border-b-2 pb-2 border-siteDefault w-96">
                     Sales View

@@ -11,6 +11,7 @@ import {
     TableRow,
 } from "@mui/material";
 import moment from "moment";
+import { Helmet } from "react-helmet-async";
 
 const SalesHistory = () => {
     const axiosPublic = useAxiosPublic();
@@ -52,6 +53,7 @@ const SalesHistory = () => {
 
     return (
         <div className="">
+            <Helmet><title>IMS || Sales History</title></Helmet>
             <div>
                 <h1 className="mt-10 text-center mb-10 text-3xl underline text-siteDefault">
                     Sales History

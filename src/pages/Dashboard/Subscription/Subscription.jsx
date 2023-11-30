@@ -4,11 +4,13 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Package3 from "./Package3";
 import Package2 from "./Package2";
+import { Helmet } from "react-helmet-async";
 
 const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
 const Subscription = () => {
     return (
         <div className="max-w-screen-xl mx-auto px-10 pr-24 mt-20">
+            <Helmet><title>IMS || Subscription</title></Helmet>
             <div className=" mb-10 flex justify-center">
                 <h1 className="text-center text-4xl font-semibold uppercase text-siteDefaultSecond border-b-2 border-siteDefaultSecond w-[420px] border-r-2 border-l-2 pb-2">
                     Subscription Plan

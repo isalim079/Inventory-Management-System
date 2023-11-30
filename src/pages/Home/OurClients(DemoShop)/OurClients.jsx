@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import Aos from "aos";
+import "aos/dist/aos.css";
 import {
     Card,
     CardActions,
@@ -27,15 +29,27 @@ const OurClients = () => {
 
     // console.log(demoShopLists);
 
+    useEffect(() => {
+        Aos.init({
+            duration: 1000,
+        });
+    }, []);
+
     return (
-        <div className=" max-w-screen-xl mx-auto md:mt-36 md:mb-36">
+        <div className=" max-w-screen-xl mx-auto md:mt-36 md:mb-36 mt-10 mb-16">
             <div className="mb-4 flex justify-center">
-                <h1 className="text-center text-4xl font-semibold uppercase text-siteDefaultSecond border-b-2 border-siteDefaultSecond w-[280px] border-r-2 border-l-2 pb-2">
+                <h1
+                    className="text-center md:text-4xl text-2xl font-semibold uppercase text-siteDefaultSecond border-b-2 border-siteDefaultSecond md:w-[280px] w-[200px] border-r-2 border-l-2 pb-2"
+                    data-aos="fade-up"
+                >
                     Our Clients
                 </h1>
             </div>
             <div className="mb-10 flex justify-center">
-                <p className="text-center text-base mb-10 w-[620px] text-siteDefaultSecond">
+                <p
+                    className="text-center md:text-base text-xs mb-10 w-[620px] text-siteDefaultSecond"
+                    data-aos="fade-up"
+                >
                     Still thinking about your shop inventory management system??
                     Here we are...
                 </p>

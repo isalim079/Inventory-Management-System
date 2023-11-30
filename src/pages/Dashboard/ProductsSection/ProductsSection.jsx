@@ -13,6 +13,7 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { AuthContext } from "../../../router/AuthProvider";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 export default function ProductsSection() {
     const axiosPublic = useAxiosPublic();
@@ -66,6 +67,7 @@ export default function ProductsSection() {
 
     return (
         <div className="p-10 mt-8">
+            <Helmet><title>IMS || Products Section</title></Helmet>
             <div>
                 <h1 className="text-center text-3xl mb-10 border-b-2 border-siteDefaultSecond text-siteDefaultSecond pb-2">
                     Products Section

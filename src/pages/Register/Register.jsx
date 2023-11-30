@@ -9,6 +9,7 @@ import { AuthContext } from "../../router/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { updateProfile } from "firebase/auth";
+import { Helmet } from "react-helmet-async";
 
 const Register = () => {
     const { registerWithEmailPass } = useContext(AuthContext);
@@ -53,7 +54,7 @@ const Register = () => {
             return;
         }
 
-        fetch("http://localhost:2800/imsUsersDB", {
+        fetch("https://assignment-12-server-nu-seven.vercel.app/imsUsersDB", {
             method: "GET",
         })
             .then((res) => res.json())
@@ -85,7 +86,7 @@ const Register = () => {
                         console.log(error.message);
                     });
 
-                fetch("http://localhost:2800/imsUsersDB", {
+                fetch("https://assignment-12-server-nu-seven.vercel.app/imsUsersDB", {
                     method: "POST",
                     headers: {
                         "content-type": "application/json",
@@ -112,6 +113,7 @@ const Register = () => {
 
     return (
         <div>
+            <Helmet><title>IMS || Register</title></Helmet>
             <div className="flex justify-center items-center h-[620px]">
                 <div className="flex items-center justify-around w-full">
                     <div className="">

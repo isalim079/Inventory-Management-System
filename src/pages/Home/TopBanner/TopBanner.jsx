@@ -3,7 +3,6 @@ import "aos/dist/aos.css";
 import { useEffect } from "react";
 
 const TopBanner = () => {
-
     useEffect(() => {
         Aos.init({
             duration: 1000,
@@ -11,9 +10,9 @@ const TopBanner = () => {
     }, []);
 
     return (
-        <div className="max-w-screen-xl mx-auto mt-36">
-            <div className="flex items-center justify-between">
-                <div className=" flex-1">
+        <div className="max-w-screen-xl mx-auto md:mt-36 p-8 md:p-0">
+            <div className="md:flex items-center justify-between">
+                <div className=" flex-1 mb-8 md:mb-0">
                     <div data-aos="fade-up">
                         <h1 className="text-4xl font-semibold leading-[45px] text-siteDefaultSecond mb-2">
                             Inventory Management Today

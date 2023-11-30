@@ -15,6 +15,7 @@ import {
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import emailjs from "@emailjs/browser";
+import { Helmet } from "react-helmet-async";
 
 const ManageShop = () => {
     const axiosPublic = useAxiosPublic();
@@ -103,6 +104,7 @@ const ManageShop = () => {
 
     return (
         <div>
+            <Helmet><title>IMS || Manage Shop</title></Helmet>
             <div>
                 {shopOwner?.role === "admin" ? (
                     <TableContainer component={Paper}>

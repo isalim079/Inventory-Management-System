@@ -6,6 +6,7 @@ import { AuthContext } from "../../router/AuthProvider";
 import { useContext } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const CreateShop = () => {
     const { user } = useContext(AuthContext);
@@ -51,7 +52,6 @@ const CreateShop = () => {
                             shopId,
                             shopName,
                             shopLogo,
-                            
                         })
                         .then((res) => {
                             console.log("usersDB role updated", res.data);
@@ -77,6 +77,7 @@ const CreateShop = () => {
 
     return (
         <div className="my-28 max-w-screen-xl mx-auto">
+            <Helmet><title>IMS || Create Shop</title></Helmet>
             <div className="mb-7">
                 <Divider>
                     <h1 className="text-center text-2xl font-semibold uppercase text-siteDefaultSecond">

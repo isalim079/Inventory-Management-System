@@ -1,14 +1,26 @@
 import { FaCaretRight } from "react-icons/fa6";
+import Aos from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
 
 const SubscriptionPlan = () => {
+
+    useEffect(() => {
+        Aos.init({
+            duration: 1000,
+        });
+    }, []);
+
     return (
-        <div className="max-w-screen-xl mx-auto mb-36 ">
-            <div className="mb-20 flex justify-center">
-                <h1 className="text-center text-4xl font-semibold uppercase text-siteDefaultSecond border-b-2 border-siteDefaultSecond w-[420px] border-r-2 border-l-2 pb-2">Subscription Plan</h1>
+        <div className="max-w-screen-xl mx-auto md:mb-36 p-8 md:p-0">
+            <div className="md:mb-20 mb-10 flex justify-center">
+                <h1 className="text-center text-2xl md:text-4xl font-semibold uppercase text-siteDefaultSecond border-b-2 border-siteDefaultSecond w-[420px] border-r-2 border-l-2 pb-2">
+                    Subscription Plan
+                </h1>
             </div>
-            <div className="md:flex space-x-16">
+            <div className="md:flex md:space-x-16 space-y-5 md:space-y-0">
                 {/* 1st plan */}
-                <div className="w-96 text-center bg-gray-100 p-10 rounded-3xl border-b-4 border-siteDefaultSecond">
+                <div className="md:w-96 text-center bg-gray-100 p-10 rounded-3xl border-b-4 border-siteDefaultSecond" data-aos="fade-up">
                     <div>
                         <h1 className="text-siteDefaultSecond text-2xl font-semibold">
                             Starter
@@ -18,11 +30,11 @@ const SubscriptionPlan = () => {
                         </div>
                     </div>
                     <div className="flex items-end text-siteDefault justify-center">
-                        <p className="text-8xl font-bold">29$</p>
+                        <p className="md:text-8xl text-5xl font-bold">29$</p>
                         <p className="font-semibold">/month</p>
                     </div>
                     <div>
-                        <p className="text-gray-500 text-justify mt-4">
+                        <p className="text-gray-500 text-justify mt-4 text-xs md:text-base">
                             Ideal for small businesses or startups looking to
                             streamline inventory management. The Starter plan
                             offers essential features like real-time tracking
@@ -48,26 +60,33 @@ const SubscriptionPlan = () => {
                         </ul>
                     </div>
                     <div className="mt-10">
-                        <button className="w-full bg-siteDefault py-2 text-white rounded-md hover:bg-[#8F2D49]">Purchase</button>
+                        <button className="w-full bg-siteDefault py-2 text-white rounded-md hover:bg-[#8F2D49]">
+                            Purchase
+                        </button>
                     </div>
                 </div>
                 {/* 2nd plan */}
-                <div className="w-96 text-center bg-gray-100 p-10 rounded-3xl border-b-4 border-siteDefaultSecond">
+                <div className="md:w-96 text-center bg-gray-100 p-10 rounded-3xl border-b-4 border-siteDefaultSecond" data-aos="fade-up">
                     <div>
                         <h1 className="text-siteDefaultSecond text-2xl font-semibold">
-                        Business
+                            Business
                         </h1>
                         <div className="flex justify-center">
                             <div className="border-2 border-siteDefaultSecond my-4 w-80"></div>
                         </div>
                     </div>
                     <div className="flex items-end text-siteDefault justify-center">
-                        <p className="text-8xl font-bold">59$</p>
+                        <p className="text-5xl md:text-8xl font-bold">59$</p>
                         <p className="font-semibold">/month</p>
                     </div>
                     <div>
-                        <p className="text-gray-500 text-justify mt-4">
-                        Designed for growing businesses with moderate inventory needs. The Business plan provides advanced analytics, multi-platform integration, and customization options for up to 2000 products/items. Scale further by incrementally increasing inventory capacity with affordable add-on choices.
+                        <p className="text-gray-500 text-justify mt-4 text-xs md:text-base">
+                            Designed for growing businesses with moderate
+                            inventory needs. The Business plan provides advanced
+                            analytics, multi-platform integration, and
+                            customization options for up to 2000 products/items.
+                            Scale further by incrementally increasing inventory
+                            capacity with affordable add-on choices.
                         </p>
                     </div>
                     <div className="mt-4">
@@ -87,26 +106,34 @@ const SubscriptionPlan = () => {
                         </ul>
                     </div>
                     <div className="mt-10">
-                        <button className="w-full bg-siteDefault py-2 text-white rounded-md hover:bg-[#8F2D49]">Purchase</button>
+                        <button className="w-full bg-siteDefault py-2 text-white rounded-md hover:bg-[#8F2D49]">
+                            Purchase
+                        </button>
                     </div>
                 </div>
                 {/* 3rd plan */}
-                <div className="w-96 text-center bg-gray-100 p-10 rounded-3xl border-b-4 border-siteDefaultSecond">
+                <div className="md:w-96 text-center bg-gray-100 p-10 rounded-3xl border-b-4 border-siteDefaultSecond" data-aos="fade-up">
                     <div>
                         <h1 className="text-siteDefaultSecond text-2xl font-semibold">
-                        Enterprise
+                            Enterprise
                         </h1>
                         <div className="flex justify-center">
                             <div className="border-2 border-siteDefaultSecond my-4 w-80"></div>
                         </div>
                     </div>
                     <div className="flex items-end text-siteDefault justify-center">
-                        <p className="text-8xl font-bold">99$</p>
+                        <p className="md:text-8xl text-5xl font-bold">99$</p>
                         <p className="font-semibold">/month</p>
                     </div>
                     <div>
-                        <p className="text-gray-500 text-justify mt-4">
-                        Tailored for established enterprises or businesses with extensive inventory requirements. The Enterprise plan offers unlimited products/items, dedicated support, advanced security, API access for custom integrations, and round-the-clock assistance. Perfect for scaling without worrying about capacity limitations.
+                        <p className="text-gray-500 text-justify mt-4 text-xs md:text-base">
+                            Tailored for established enterprises or businesses
+                            with extensive inventory requirements. The
+                            Enterprise plan offers unlimited products/items,
+                            dedicated support, advanced security, API access for
+                            custom integrations, and round-the-clock assistance.
+                            Perfect for scaling without worrying about capacity
+                            limitations.
                         </p>
                     </div>
                     <div className="mt-4">
@@ -130,7 +157,9 @@ const SubscriptionPlan = () => {
                         </ul>
                     </div>
                     <div className="mt-14">
-                        <button className="w-full bg-siteDefault py-2 text-white rounded-md hover:bg-[#8F2D49]">Purchase</button>
+                        <button className="w-full bg-siteDefault py-2 text-white rounded-md hover:bg-[#8F2D49]">
+                            Purchase
+                        </button>
                     </div>
                 </div>
             </div>

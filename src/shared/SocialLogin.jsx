@@ -13,7 +13,7 @@ const SocialLogin = () => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:2800/imsUsersDB")
+            .get("https://assignment-12-server-nu-seven.vercel.app/imsUsersDB")
             .then((res) => {
                 setImsUsers(res.data);
             })
@@ -41,7 +41,7 @@ const SocialLogin = () => {
                     );
 
                     if (!userExists) {
-                        fetch("http://localhost:2800/imsUsersDB", {
+                        fetch("https://assignment-12-server-nu-seven.vercel.app/imsUsersDB", {
                             method: "POST",
                             headers: {
                                 "content-type": "application/json",

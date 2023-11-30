@@ -8,6 +8,7 @@ import { AuthContext } from "../../router/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
     const { loginWithEmailPass } = useContext(AuthContext);
@@ -57,6 +58,7 @@ const Login = () => {
 
     return (
         <div>
+            <Helmet><title>IMS || Login</title></Helmet>
             <div className="flex justify-center items-center h-[620px]">
                 <div className="flex items-center justify-around w-full">
                     <div className="">
